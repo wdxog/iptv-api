@@ -3,21 +3,24 @@
 [中文](./tutorial.md) | English
 
 <div align="center">
-  <img src="../static/images/logo.png" alt="logo"/>
-  <h1 align="center">IPTV-API</h1>
+  <img src="../static/images/logo.svg" alt="IPTV-API logo"  width="120" height="120"/>
 </div>
 
-📺 IPTV live-source auto-update platform — 🤖 fully automated collection, filtering, speed-testing, and generation
-pipeline 🚀. Supports extensive customization; paste the resulting URL into your player to watch
+<p>
+    <br>
+    ⚡️ IPTV live-source automatic update platform — 🤖 fully automated collection, filtering, speed-testing, and generation 🚀. Supports extensive personalized configuration; paste the resulting address into a player to watch.
+</p>
 
-> [!NOTE]
-> Remote deployment or customized paid services (paid) are available. Contact email: `360996299@qq.com`
+There are four installation and running methods in total (Workflows, Command Line, GUI, Docker). Choose the one that
+suits you.
 
-There are four installation and operation methods in total, choose the one that suits you.
+## Workflow deployment
 
-## Workflow Deployment
+Use GitHub Actions workflows to deploy and manually trigger the update endpoint.
 
-Use GitHub workflow deployment to automatically update the interface.
+> [!IMPORTANT]
+> Because GitHub resources are limited, workflow updates can only be triggered manually.
+> If you need frequent updates or scheduled runs, please deploy using another method.
 
 ### Enter the IPTV-API Project
 
@@ -60,6 +63,10 @@ and update the latest code.
 This is because some files conflict with the default files of the main repository, click `Discard commits` to update the
 latest code.
 ![Conflict resolution](./images/conflict.png 'Conflict resolution')
+
+> [!IMPORTANT]
+> To avoid conflicts when updating the code later, it is recommended to copy files in the `config` directory and rename
+> them by adding the `user_` prefix before modifying.
 
 ### Modify Template
 
@@ -127,22 +134,28 @@ Adjust the configuration as needed, here is the default configuration descriptio
      uncheck display interface information) to disable this feature.
 > 2. If your network supports IPv6, you can modify the configuration: `ipv6_support = True` (GUI: Check
      `Force assume the current network supports IPv6`) to skip the support check.
-> 3. Enabling keyword search (disabled by default) will significantly increase the update time, not recommended to
-     enable.
 
-#### Similarly, you can customize subscription sources, blacklists, and whitelists (it is recommended to copy files and rename them with the
-
-`user_` prefix).
+#### Add data sources and more
 
 - Subscription sources (`config/subscribe.txt`)
 
-  Supports txt and m3u addresses as subscriptions, the program will read the channel interface data in sequence.
+  Since no default subscription addresses are provided, you need to add them yourself; otherwise the update results may
+  be empty. Both `.txt` and `.m3u` URLs are supported as subscriptions, and the program will read channel interface
+  entries from them sequentially.
   ![Subscription sources](./images/subscribe.png 'Subscription sources')
 
 
 - Local sources（`config/local.txt`）
 
-  The channel interface data comes from local files, and the program will read the channel interface data in sequence.
+  Channel interface data comes from local files. If there are multiple local source files, you can create a `local`
+  directory under `config` to store them; the program will read the channel interface data from them in order. Supports
+  `txt` and `m3u` files.
+
+
+- Logo source (`config/logo`)
+
+  Directory for channel logo images. The program will match corresponding logo images in this directory based on the
+  channel names in the template. If a remote library `logo_url` is used, the remote source will be preferred.
 
 
 - EPG Source (`config/epg.txt`)
@@ -241,31 +254,8 @@ If you can access this link and it returns the updated interface content, then y
 successfully created! Simply copy and paste this link into software like `TVBox` in the configuration field to use~
 
 > [!NOTE]\
-> Except for the first execution of the workflow, which requires you to manually trigger it, subsequent
-> executions (default: 6:00 AM and 18:00 PM Beijing time daily) will be automatically triggered. If you have modified
-> the template or configuration files and want to execute the update immediately, you can manually trigger (2)
-`Run workflow`.
-
-#### 4. Modify Workflow Update Frequency (optional)
-
-If you want to modify the update frequency (default: 6:00 AM and 18:00 PM Beijing time daily), you can modify the
-`on: schedule: - cron` field:
-![.github/workflows/main.yml](./images/schedule-cron.png '.github/workflows/main.yml')
-
-If you want to perform updates every 2 days, you can modify it like this:
-
-```bash
-- cron: '0 22 */2 * *'
-- cron: '0 10 */2 * *'
-```
-
-> [!WARNING]
-> 1. It is strongly recommended not to set the update frequency too high, as there is no significant difference in
-     interface content over a short period. High update frequency and long-running workflows may be considered resource
-     abuse, leading to the risk of repository and account suspension.
-> 2. Please monitor the runtime of your workflows. If you find the execution time too long, reduce the number of
-     channels in the template, adjust the pagination and interface count in the configuration to comply with runtime
-     requirements.
+> If you have modified the template or configuration files and want to execute the update immediately, you can manually
+> trigger (2)`Run workflow`.
 
 ## Command Line
 
@@ -310,8 +300,6 @@ pipenv run ui
 ```
 
 ![IPTV-API Update Software](./images/ui.png 'IPTV-API Update Software')
-
-If you do not understand the software configuration options, do not change anything, just click start.
 
 ## Docker
 

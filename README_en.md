@@ -1,10 +1,11 @@
 <div align="center">
-  <img src="./static/images/logo.png" alt="logo"/>
-  <h1 align="center">IPTV-API</h1>
+  <img src="./static/images/logo.svg" alt="IPTV-API logo"  width="120" height="120"/>
 </div>
 
-📺 IPTV live-source auto-update platform — 🤖 fully automated collection, filtering, speed-testing, and generation
-pipeline 🚀. Supports extensive customization; paste the resulting URL into your player to watch
+<p>
+    <br>
+    ⚡️ IPTV live-source automatic update platform — 🤖 fully automated collection, filtering, speed-testing, and generation 🚀. Supports extensive personalized configuration; paste the resulting address into a player to watch.
+</p>
 
 <p align="center">
     <br>
@@ -48,30 +49,37 @@ pipeline 🚀. Supports extensive customization; paste the resulting URL into yo
 - [❤️ Donations](#donations)
 - [👀 Follow](#follow)
 - [⭐️ Star History](#star-history)
+- [⚠️ Disclaimer](#disclaimer)
 - [⚖️ License](#license)
 
 > [!IMPORTANT]
-> 1. Visit the `Govin` WeChat official account and reply with `cdn` to get a proxy acceleration address to improve
-     access speed for subscription sources and channel icons.
-> 2. This project does not guarantee or explain the stability of the interface results.
-> 3. To achieve optimal stability, it is recommended to maintain the data sources yourself.
+> 1. ⚠️ Due to an excessive number of forks, GitHub resource usage has reached its limit, and the workflow has been
+     changed to manual trigger. Please update [main.yml](./.github/workflows/main.yml) as soon as possible to remove the
+     scheduled task; otherwise the workflow may be disabled!
+> 2. Go to the `Govin` WeChat public account and reply with `cdn` to get an acceleration address to improve access speed
+     for subscription sources and channel logos.
+> 3. This project does not provide data sources. Please add your own before generating
+     results. ([How to add data sources?](./docs/tutorial_en.md#Add-data-sources-and-more))
+> 4. The quality of generated results depends on the data sources and network conditions; please adjust
+     the [configuration](#Config) accordingly to obtain results that better meet your needs.
 
 ## Core Features
 
-| Feature                               | Status | Description                                                                                                                                        |
-|:--------------------------------------|:------:|:---------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Custom Templates**                  |   ✅    | Generate personalized channels as you wish                                                                                                         |
-| **Channel Alias**                     |   ✅    | Improves channel result coverage and accuracy, supports regular expressions                                                                        |
-| **Multiple Source Types**             |   ✅    | Supports local sources, subscriptions                                                                                                              |
-| **RTMP streaming**                    |   ✅    | Supports HLS mode to improve compatibility and reduce buffering, enhancing playback on poor networks, and supports playback in browsers or players |
-| **Playback Interfaces**               |   ✅    | Supports acquisition and generation of playback interfaces                                                                                         |
-| **EPG (Electronic Program Guide)**    |   ✅    | Displays channel preview content                                                                                                                   |
-| **Channel Logo**                      |   ✅    | Supports custom channel logo library sources                                                                                                       |
-| **Interface Speed Test & Validation** |   ✅    | Measures latency, speed, resolution, and filters invalid interfaces                                                                                |
-| **Advanced Preferences**              |   ✅    | IPv4/IPv6, interface sorting priority, quantity configuration, blacklist/whitelist, region & ISP filtering                                         |
-| **Scheduled Tasks**                   |   ✅    | Automatically updates at 6:00 and 18:00 Beijing time daily by default; customizable schedule                                                       |
-| **Multiple Run Modes**                |   ✅    | Supports workflow, CLI, GUI software, Docker (amd64/arm64/arm v7)                                                                                  |
-| **More Features**                     |   ✨    | See [Configuration Parameters](#Config) section for details                                                                                        |
+| Feature                       | Support | Description                                                                                                                                                 |
+|:------------------------------|:-------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Custom templates**          |    ✅    | Generate custom channel playlists                                                                                                                           |
+| **Channel aliases**           |    ✅    | Improve channel matching and accuracy, supports regular expressions                                                                                         |
+| **Multi-source aggregation**  |    ✅    | Local sources and subscription sources                                                                                                                      |
+| **Stream relay**              |    ✅    | Improve playback on weak networks, supports direct browser playback                                                                                         |
+| **Replay/VOD interfaces**     |    ✅    | Fetching and generating replay/VOD interfaces                                                                                                               |
+| **EPG**                       |    ✅    | Fetch and display channel program guides                                                                                                                    |
+| **Channel logos**             |    ✅    | Custom channel logos, supports local additions or a remote library                                                                                          |
+| **Speed test & validation**   |    ✅    | Obtain latency, bitrate, resolution; filter invalid interfaces; supports real-time output                                                                   |
+| **Advanced preferences**      |    ✅    | Rate, resolution, blacklist/whitelist, location and ISP custom filters                                                                                      |
+| **Results management**        |    ✅    | Categorized storage and access of results, log recording, unmatched channel records, statistical analysis, freeze filtering/unfreeze rollback, data caching |
+| **Scheduled tasks**           |    ✅    | Scheduled or interval updates                                                                                                                               |
+| **Multi-platform deployment** |    ✅    | Workflows, CLI, GUI, Docker (amd64/arm64/arm v7)                                                                                                            |
+| **More features**             |    ✨    | See [Configuration](#Config) section for details                                                                                                            |
 
 ## Config
 
@@ -102,7 +110,7 @@ pipeline 🚀. Supports extensive customization; paste the resulting URL into yo
 | public_scheme          | Public network protocol. Optional values: `http`, `https`.                                                                                                                                                                                                                                                                                  | http              |
 | public_domain          | Public network Host address, used to generate access URLs in the result; uses local machine IP by default.                                                                                                                                                                                                                                  | 127.0.0.1         |
 | cdn_url                | CDN proxy acceleration address, used for accelerated access to subscription sources, channel icons and other resources.                                                                                                                                                                                                                     |                   |
-| open_driver            | Enable browser execution. If there are no updates, this mode can be enabled to try fetching data via a browser, but it consumes more resources.                                                                                                                                                                                             | False             |
+| http_proxy             | HTTP proxy address, used for network requests such as obtaining subscription sources                                                                                                                                                                                                                                                        |                   |
 | open_local             | Enable local source function, will use the data in the template file and the local source file (`local.txt`).                                                                                                                                                                                                                               | True              |
 | open_subscribe         | Enable subscription source function.                                                                                                                                                                                                                                                                                                        | True              |
 | open_history           | Enable using historical update results (including interfaces from template and result files), merged into this update.                                                                                                                                                                                                                      | True              |
@@ -110,7 +118,7 @@ pipeline 🚀. Supports extensive customization; paste the resulting URL into yo
 | open_speed_test        | Enable speed test functionality to obtain response time, rate, and resolution.                                                                                                                                                                                                                                                              | True              |
 | open_filter_resolution | Enable resolution filtering. Interfaces below the minimum resolution (`min_resolution`) will be filtered. GUI users need to manually install FFmpeg; the program will call FFmpeg to obtain interface resolution. Recommended to enable: although it increases speed test time, it more effectively distinguishes playable interfaces.      | True              |
 | open_filter_speed      | Enable speed filtering. Interfaces below the minimum speed (`min_speed`) will be filtered.                                                                                                                                                                                                                                                  | True              |
-| open_supply            | Enable compensation mechanism mode. When the number of channel interfaces is insufficient, interfaces that do not meet the conditions (such as lower than minimum speed) but may still be available will be added to the result to avoid empty results.                                                                                     | False             |
+| open_supply            | Enable compensation mechanism mode. When the number of channel interfaces is insufficient, interfaces that do not meet the conditions (such as lower than minimum speed) but may still be available will be added to the result to avoid empty results.                                                                                     | True              |
 | min_resolution         | Minimum interface resolution, takes effect only when `open_filter_resolution` is enabled.                                                                                                                                                                                                                                                   | 1920x1080         |
 | max_resolution         | Maximum interface resolution, takes effect only when `open_filter_resolution` is enabled.                                                                                                                                                                                                                                                   | 1920x1080         |
 | min_speed              | Minimum interface speed (unit: M/s), takes effect only when `open_filter_speed` is enabled.                                                                                                                                                                                                                                                 | 0.5               |
@@ -124,7 +132,6 @@ pipeline 🚀. Supports extensive customization; paste the resulting URL into yo
 | location               | Interface location filter. Result will only contain interfaces whose location matches the given keywords (comma-separated). Leave empty to not restrict by location. Recommended to set near the end user to improve playback experience.                                                                                                   |                   |
 | isp                    | Interface operator filter. Result will only contain interfaces whose operator matches the given keywords (comma-separated). Leave empty to not restrict by operator.                                                                                                                                                                        |                   |
 | origin_type_prefer     | Preferred interface source ordering. The result is sorted in this order (comma-separated). Example: `local,subscribe`. Leave empty to not specify and sort by interface speed instead.                                                                                                                                                      |                   |
-| local_file             | Local source file path.                                                                                                                                                                                                                                                                                                                     | config/local.txt  |
 | local_num              | Preferred number of local source interfaces in the result.                                                                                                                                                                                                                                                                                  | 10                |
 | subscribe_num          | Preferred number of subscription source interfaces in the result.                                                                                                                                                                                                                                                                           | 10                |
 | logo_url               | Channel logo library URL.                                                                                                                                                                                                                                                                                                                   |                   |
@@ -142,6 +149,8 @@ pipeline 🚀. Supports extensive customization; paste the resulting URL into yo
 ```
 iptv-api/                  # Project root directory
 ├── config                 # Configuration files directory, includes config files, templates, etc.
+│   └── hls                # Local HLS streaming files directory, used to store video files named after channel names
+│   └── local              # Local source files directory; used to store multiple local source files; supports txt/m3u formats
 │   └── config.ini         # Configuration parameters file
 │   └── demo.txt           # Channel template
 │   └── alias.txt          # Channel aliases
@@ -150,19 +159,18 @@ iptv-api/                  # Project root directory
 │   └── subscribe.txt      # Channel subscription sources list
 │   └── local.txt          # Local source file
 │   └── epg.txt            # EPG subscription sources list
-├── output                 # Output files directory, includes generated result files, etc.
-│   └── data               # Result data cache directory
-│   └── epg                # EPG result directory
-│   └── ipv4               # IPv4 result directory
-│   └── ipv6               # IPv6 result directory
-│   └── result.m3u/txt     # m3u/txt result
-│   └── hls.m3u/txt        # RTMP hls stream result
-│   └── log                # Log files directory
-│       └── result.log     # Valid result log
-│       └── speed_test.log # Speed test log
-│       └── statistic.log  # Statistics result log
-│       └── nomatch.log    # Unmatched channel records
-└── source.json            # VOD source configuration file
+└── output                 # Output files directory, includes generated result files, etc.
+    └── data               # Result data cache directory
+    └── epg                # EPG result directory
+    └── ipv4               # IPv4 result directory
+    └── ipv6               # IPv6 result directory
+    └── result.m3u/txt     # m3u/txt result
+    └── hls.m3u/txt        # RTMP hls stream result
+    └── log                # Log files directory
+        └── result.log     # Valid result log
+        └── speed_test.log # Speed test log
+        └── statistic.log  # Statistics result log
+        └── nomatch.log    # Unmatched channel records
 ```
 
 ### Workflow
@@ -324,9 +332,9 @@ WeChat public account search for Govin, or scan the code to receive updates and 
 
 ![Wechat public account](./static/images/qrcode.jpg)
 
-### Customization (Paid)
+### Need more help?
 
-For remote deployment or custom services, please contact: `360996299@qq.com`
+Contact via email: `360996299@qq.com`
 
 ## Star History
 
@@ -339,6 +347,18 @@ For remote deployment or custom services, please contact: `360996299@qq.com`
 | Alipay                                | Wechat                                    |
 |---------------------------------------|-------------------------------------------|
 | ![Alipay](./static/images/alipay.jpg) | ![Wechat](./static/images/appreciate.jpg) |
+
+## Disclaimer
+
+- This project is provided as a tool/framework only; it does not include or provide any live streams, copyrighted
+  programs, or other third-party content. Users must add their own data sources and ensure that the data sources used
+  and their use comply with applicable laws and regulations in their jurisdiction.
+- Users are solely responsible for any content obtained, distributed, or played through this project. Do not use it to
+  distribute, share, or watch copyrighted content without authorization.
+- When using this project, comply with local laws, regulations, and supervisory requirements. The author is not liable
+  for any legal responsibility arising from users' use of this project.
+- For commercial, corporate, or production use, it is recommended to consult legal counsel and perform a compliance
+  review.
 
 ## License
 
